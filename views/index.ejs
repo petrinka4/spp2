@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Менеджер задач</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <div>
+        <p class="page-caption">Личный планировщик</p>
+        <h1>Менеджер задач</h1>
+      </div>
+    </header>
+
+    <% if (message) { %>
+      <p class="message" role="status"><%= message %></p>
+    <% } %>
+
+    <section class="card create-task-card">
+      <div class="section-heading">
+        <h2>Новая задача</h2>
+        <span>Добавьте задачу и срок выполнения</span>
+      </div>
+
+      <form method="POST" action="/tasks">
+        <label>
+          Название
+          <input
+            type="text"
+            name="title"
+            required
+            placeholder="Например, проверить отчёт"
+          >
+        </label>
+
+        <label>
+          Ожидаемая дата завершения
+          <input type="date" name="dueDate">
+        </label>
+
+        <button type="submit">Добавить задачу</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="tasks-heading">
+        <div>
+          <h2>Список задач</h2>
+          <p class="tasks-count">Всего задач: <%= tasks.length %></p>
+        </div>
+
+        <nav class="filter-bar" aria-label="Фильтр по статусу">
+          <a
+            href="/?status=all"
+            class="<%= filter === 'all' ? 'active' : '' %>"
+          >
+            Все
+          </a>
+
+          <% STATUSES.forEach(function(status) { %>
+            <a
+              href="/?status=<%= status %>"
+              class="<%= filter === status ? 'active' : '' %>"
+            >
+              <%= STATUS_LABELS[status] %>
+            </a>
+          <% }); %>
+        </nav>
+      </div>
+
+      <% if (tasks.length === 0) { %>
+        <p class="empty">Задач не найдено</p>
+      <% } else { %>
+        <ul class="task-list">
+          <% tasks.forEach(function(task) { %>
+            <li class="task-item <%= task.status === 'done' ? 'done' : '' %>">
+              <div class="task-header">
+                <div>
+                  <p class="task-title <%= task.status === 'done' ? 'done' : '' %>">
+                    <%= task.title %>
+                  </p>
+
+                  <div class="task-meta">
+                    <span>
+                      Ожидаемая дата:
+                      <strong><%= formatDate(task.dueDate) %></strong>
+                    </span>
+                    <span class="meta-separator">·</span>
+                    <span>Создана: <%= formatDate(task.createdAt) %></span>
+                  </div>
+                </div>
+
+                <span class="badge <%= task.status %>">
+                  <%= STATUS_LABELS[task.status] %>
+                </span>
+              </div>
+
+              <div class="task-actions">
+                <form method="POST" action="/tasks/<%= task.id %>/status">
+                  <label>
+                    Статус
+                    <select name="status" onchange="this.form.submit()">
+                      <% STATUSES.forEach(function(status) { %>
+                        <option
+                          value="<%= status %>"
+                          <%= task.status === status ? 'selected' : '' %>
+                        >
+                          <%= STATUS_LABELS[status] %>
+                        </option>
+                      <% }); %>
+                    </select>
+                  </label>
+                </form>
+
+                <form method="POST" action="/tasks/<%= task.id %>/due-date">
+                  <label>
+                    Дата завершения
+                    <input
+                      type="date"
+                      name="dueDate"
+                      value="<%= task.dueDate || '' %>"
+                    >
+                  </label>
+                  <button type="submit" class="secondary">Сохранить</button>
+                </form>
+
+                <form
+                  method="POST"
+                  action="/tasks/<%= task.id %>/attach"
+                  enctype="multipart/form-data"
+                >
+                  <label>
+                    Прикрепить файл
+                    <input type="file" name="file" required>
+                  </label>
+                  <button type="submit" class="secondary">Загрузить</button>
+                </form>
+
+                <form
+                  method="POST"
+                  action="/tasks/<%= task.id %>/delete"
+                  onsubmit="return confirm('Удалить задачу?')"
+                >
+                  <button type="submit" class="danger">Удалить</button>
+                </form>
+              </div>
+
+              <% if (task.attachments && task.attachments.length > 0) { %>
+                <div class="attachments">
+                  <h4>Вложения (<%= task.attachments.length %>)</h4>
+
+                  <ul>
+                    <% task.attachments.forEach(function(file) { %>
+                      <li>
+                        <a
+                          href="/uploads/<%= file.filename %>"
+                          download="<%= file.originalName %>"
+                        >
+                          <%= file.originalName %>
+                        </a>
+                        <span>(<%= formatDate(file.uploadedAt) %>)</span>
+                      </li>
+                    <% }); %>
+                  </ul>
+                </div>
+              <% } %>
+            </li>
+          <% }); %>
+        </ul>
+      <% } %>
+    </section>
+  </main>
+</body>
+</html>

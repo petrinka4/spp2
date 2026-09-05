@@ -1,0 +1,261 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 2rem;
+  background: #f8f5fb;
+  color: #2d2038;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 1.75rem;
+  color: #4c1d5e;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #eadff0;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 14px rgba(76, 29, 94, 0.08);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: #5b2167;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a3b55;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d9c9e0;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  color: #2d2038;
+  background: #fff;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+  outline: none;
+  border-color: #8b3fa0;
+  box-shadow: 0 0 0 3px rgba(139, 63, 160, 0.15);
+}
+
+button,
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  background: #7c3a8c;
+  color: #ffffff;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+  background: #622d72;
+}
+
+button:active,
+.btn:active {
+  transform: translateY(1px);
+}
+
+button.danger {
+  background: #c2415b;
+}
+
+button.danger:hover {
+  background: #9f3048;
+}
+
+button.secondary {
+  background: #397d7d;
+}
+
+button.secondary:hover {
+  background: #2d6464;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filter-bar a {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  background: #efe7f3;
+  color: #553660;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.filter-bar a:hover {
+  background: #e2d2e8;
+}
+
+.filter-bar a.active {
+  background: #7c3a8c;
+  color: #ffffff;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item {
+  border: 1px solid #e5d9ea;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  background: #fffdff;
+}
+
+.task-item.done {
+  opacity: 0.8;
+  background: #eef9f6;
+  border-color: #bfe4da;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.task-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+  color: #32223d;
+}
+
+.task-title.done {
+  text-decoration: line-through;
+  color: #81728b;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge.pending {
+  background: #fdecc8;
+  color: #8a4d00;
+}
+
+.badge.in_progress {
+  background: #e5d5f5;
+  color: #5a227a;
+}
+
+.badge.done {
+  background: #ccefe5;
+  color: #17654f;
+}
+
+.task-meta {
+  font-size: 0.875rem;
+  color: #766a7e;
+  margin-bottom: 0.75rem;
+}
+
+.task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5d9ea;
+}
+
+.task-actions form {
+  margin: 0;
+}
+
+.attachments {
+  margin-top: 0.75rem;
+}
+
+.attachments h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  color: #4c1d5e;
+}
+
+.attachments ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.attachments a {
+  color: #7c3a8c;
+}
+
+.attachments a:hover {
+  color: #5b2167;
+}
+
+.empty {
+  text-align: center;
+  color: #766a7e;
+  padding: 2rem;
+}
+
+.status-labels {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
