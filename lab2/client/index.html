@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Планировщик задач</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Лабораторная работа №2</p>
+          <h1>Планировщик</h1>
+        </div>
+
+      </header>
+
+      <div
+        id="alert"
+        class="notice hidden"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
+
+      <main class="workspace">
+        <aside class="panel editor-panel">
+          <div class="panel-heading">
+            <p class="section-label">Редактор</p>
+            <h2 id="form-title">Добавить задачу</h2>
+          </div>
+
+          <form id="task-form" novalidate>
+            <label class="field">
+              <span>Название</span>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                maxlength="120"
+                placeholder="Например, подготовить отчёт"
+                autocomplete="off"
+                required
+              />
+            </label>
+
+            <label class="field">
+              <span>Описание</span>
+              <textarea
+                id="description"
+                name="description"
+                maxlength="2000"
+                rows="5"
+                placeholder="Кратко опишите задачу"
+              ></textarea>
+            </label>
+
+            <label class="field">
+              <span>Состояние</span>
+              <select id="status" name="status">
+                <option value="todo">Запланировано</option>
+                <option value="in_progress">В процессе</option>
+                <option value="done">Завершено</option>
+              </select>
+            </label>
+
+            <label class="field file-field">
+              <span>Вложение</span>
+              <input
+                type="file"
+                id="attachment"
+                name="attachment"
+                accept=".jpg,.jpeg,.png,.gif,.webp,.pdf,.txt,.doc,.docx"
+              />
+              <small>Изображение, PDF, TXT, DOC или DOCX — до 5 МБ</small>
+            </label>
+
+            <p id="current-file" class="current-file hidden"></p>
+
+            <div class="form-actions">
+              <button type="submit" id="submit-btn" class="button button-primary">
+                Добавить
+              </button>
+
+              <button
+                type="button"
+                id="cancel-btn"
+                class="button button-secondary hidden"
+              >
+                Отменить
+              </button>
+            </div>
+          </form>
+        </aside>
+
+        <section class="panel list-panel" aria-labelledby="list-title">
+          <div class="list-heading">
+            <div>
+              <p class="section-label">Текущая работа</p>
+              <h2 id="list-title">Список задач</h2>
+            </div>
+
+            <span id="tasks-count" class="counter">0 задач</span>
+          </div>
+
+          <div id="tasks" class="task-list" aria-live="polite">
+            <div class="empty-state">Загрузка задач…</div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
